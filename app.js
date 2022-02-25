@@ -1,11 +1,12 @@
 
 const express=require('express');
 const app=express();
-
 const errorMiddleware = require('./api/middleware/errorHandlingMiddleware');
-const simpleRoute=require('./api/routes/simpleRouter')
+const router=require('./api/routes/simpleRouter.js');
+
 
 app.use(errorMiddleware);
-app.use('/simpleText',simpleRoute);
+app.use('/',router);
+
 
 module.exports=app;

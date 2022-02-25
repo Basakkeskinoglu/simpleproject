@@ -15,7 +15,7 @@ simpleText.create=(newsText,result) => {
         result(null, { id: res.insertId, ...newsText });
     });
 };
-simpleText.findById=(id,result)=>{
+simpleText.findByIds=(id,result)=>{
     con.query(`SELECT * FROM simpletext WHERE id = ${id}`, (err, res)=>{
         if (err) {
             console.log("error: ", err);
@@ -32,7 +32,7 @@ simpleText.findById=(id,result)=>{
 };
 simpleText.getAll=(simpletext,result)=>{
     let query = "SELECT * FROM simpletext";
-    if (title) {
+    if (simpletext) {
         query += ` WHERE title LIKE '%${simpletext}%'`;
     }
     con.query(query, (err, res) => {

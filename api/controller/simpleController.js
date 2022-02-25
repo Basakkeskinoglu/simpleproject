@@ -1,4 +1,6 @@
-const simpleText = require('../model/simpleModel');
+const router = require('../model/simpleModel');
+const express=require('express');
+
 
 exports.create=(req,res)=>{
     if (!req.body) {
@@ -7,9 +9,9 @@ exports.create=(req,res)=>{
         });
     }
     const newsText=new simpleText({
-        simpletext: req.body.simpletext
+        router: req.body.simpletext
     });
-    simpleText.create(newsText,(err,data)=>{
+    router.create(newsText,(err,data)=>{
         if (err)
             res.status(500).send({
             message:
@@ -17,9 +19,9 @@ exports.create=(req,res)=>{
         });
         else res.send(data);
     });
-};
+}
 exports.getAll=(req,res)=>{
-    simpleText.getAll(req.query.simpletext, (err, data) => {
+    router.getAll(req.query.text, (err, data) => {
     if (err)
       res.status(500).send({
         message:
@@ -29,7 +31,7 @@ exports.getAll=(req,res)=>{
     });
 }
 exports.findById=(req,res)=>{
-    simpleText.findById(req.params.id, (err, data) => {
+    router.findByIds(req.params.id, (err, data) => {
     if (err) {
       if (err.kind === "not_found") {
         res.status(404).send({
@@ -52,7 +54,7 @@ exports.update = (req, res) => {
 
   console.log(req.body);
 
-  simpleText.updateById(
+  router.updateById(
     req.params.id,
     new simpletext(req.body),
     (err, data) => {
@@ -70,8 +72,8 @@ exports.update = (req, res) => {
     }
   );
 };
-exports.delete = (req, res) => {
-  simpleText.remove(req.params.id, (err, data) => {
+exports.deletet = (req, res) => {
+  router.remove(req.params.id, (err, data) => {
     if (err) {
       if (err.kind === "not_found") {
         res.status(404).send({
@@ -86,7 +88,7 @@ exports.delete = (req, res) => {
   });
 };
 exports.deleteAll = (req, res) => {
-  simpleText.removeAll((err, data) => {
+  router.removeAll((err, data) => {
     if (err)
       res.status(500).send({
         message:
@@ -95,3 +97,4 @@ exports.deleteAll = (req, res) => {
     else res.send({ message: `All texts were deleted successfully!` });
   });
 };
+
